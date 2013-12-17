@@ -13,4 +13,8 @@ Links:
 Temperature Sensor
 http://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/overview
 
+Dropbox:
+http://raspi.tv/2013/how-to-use-dropbox-with-raspberry-pi
+>git clone https://github.com/andreafabrizi/Dropbox-Uploader.git
+>./dropbox_uploader.sh upload /home/pi/name_of_upload_file
 Motion:
