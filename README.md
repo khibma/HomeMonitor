@@ -1,13 +1,22 @@
 HomeMonitor
 ===========
-
 python code for raspberry pi, webcam, temp sensor to watch house and send emails
+
++new install
+
+-sudo apt-get update
+
+-sudo apt-get upgrade
+
+-sudo raspi-config  (tzconfig  tzselect can be done in config)
+
+
 
 Setup:
 
 sudo apt-get install python-smbus
 
-sudo apt-get install i2c-tools
+((NO: sudo apt-get install i2c-tools))
 
 sudo apt-get install motion
 
