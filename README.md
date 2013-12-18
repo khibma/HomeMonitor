@@ -10,6 +10,23 @@ python code for raspberry pi, webcam, temp sensor to watch house and send emails
 
 -sudo raspi-config  (tzconfig  tzselect can be done in config)
 
+Check to make sure temperature works:
+
+sudo modprobe w1-gpio
+
+sudo modprobe w1-therm
+
+cd /sys/bus/w1/devices
+
+ls
+
+cd 28- <tab>
+
+cat w1_slave
+
+Should see: YES
+
+
 
 
 Setup:
