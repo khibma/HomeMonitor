@@ -4,11 +4,11 @@ python code for raspberry pi, webcam, temp sensor to watch house and send emails
 
 Start here with setting up the Pi
 ---------------------------------
--sudo apt-get update
+>sudo apt-get update
 
--sudo apt-get upgrade
+>sudo apt-get upgrade
 
--sudo raspi-config  (set timezone, locale, expand file partion, etc)
+>sudo raspi-config    (set timezone, locale, expand file partion, etc)
 
 Check to make sure temperature works:  (more info in links below)
 
@@ -27,11 +27,11 @@ Check to make sure temperature works:  (more info in links below)
 Should see: YES
 
 
--sudo apt-get install python-smbus
+>sudo apt-get install python-smbus
 
--sudo apt-get install motion
+>sudo apt-get install motion
 
-sudo nano /etc/motion/motion.conf
+>sudo nano /etc/motion/motion.conf
 
 daemon on
 
@@ -49,38 +49,39 @@ lightswitch 25
 
 ffmpeg_cap_new off   #this disables the saving of a movie
 
--sudo nano /etc/default/motion
+>sudo nano /etc/default/motion
 
 start_motion_daemon=yes
 
 
 Make a directory and give motion control over it:
 
-sudo mkdir Monitor
+>sudo mkdir Monitor
 
-chgrp motion /home/pi/Monitor
+>chgrp motion /home/pi/Monitor
 
-chmod g+rwx /home/pi/Monitor
+>chmod g+rwx /home/pi/Monitor
 
-chmod -R g+w /home/pi/Monitor/
+>chmod -R g+w /home/pi/Monitor/
 
 
 -----------
 BOOT Script
 -----------
-sudo nano /etc/init.d/HM
+>sudo nano /etc/init.d/HM
 
 --get code from BOOT and paste in
 
 --Then set permissions and update
 
-sudo chmod +x /etc/init.d/HM
+>sudo chmod +x /etc/init.d/HM
 
-sudo update-rc.d HM defaults
+>sudo update-rc.d HM defaults
 
 
 
 Links:
+------
 Temperature Sensor
 http://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/overview
 
