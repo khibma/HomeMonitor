@@ -29,7 +29,7 @@ def read_temp():
     
 def check4newPhoto(photos):
     
-    localPhotos = glob.glob("/home/pi/Monitor*.jpg")    
+    localPhotos = glob.glob("/home/pi/Monitor/*.jpg")    
     #global photos
     
     newPhotos = set(localPhotos).difference(photos)
