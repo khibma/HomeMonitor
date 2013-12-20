@@ -2,42 +2,38 @@ HomeMonitor
 ===========
 python code for raspberry pi, webcam, temp sensor to watch house and send emails
 
-+new install
-
+Start here with setting up the Pi
+---------------------------------
 -sudo apt-get update
 
 -sudo apt-get upgrade
 
--sudo raspi-config  (tzconfig  tzselect can be done in config)
+-sudo raspi-config  (set timezone, locale, expand file partion, etc)
 
-Check to make sure temperature works:
+Check to make sure temperature works:  (more info in links below)
 
-sudo modprobe w1-gpio
+>sudo modprobe w1-gpio
 
-sudo modprobe w1-therm
+>sudo modprobe w1-therm
 
-cd /sys/bus/w1/devices
+>cd /sys/bus/w1/devices
 
-ls
+>ls
 
-cd 28- <tab>
+>cd 28- <tab>
 
-cat w1_slave
+>cat w1_slave
 
 Should see: YES
 
 
+-sudo apt-get install python-smbus
 
-
-Setup:
-
-sudo apt-get install python-smbus
-
-((NO: sudo apt-get install i2c-tools))
-
-sudo apt-get install motion
+-sudo apt-get install motion
 
 sudo nano /etc/motion/motion.conf
+
+daemon on
 
 width = 640
 
@@ -49,16 +45,34 @@ quality 100
 
 target_dir /home/pi/Monitor
 
+lightswitch 25
+
+ffmpeg_cap_new off   #this disables the saving of a movie
+
+-sudo nano /etc/default/motion
+
+start_motion_daemon=yes
+
+
+Make a directory and give motion control over it:
 
 sudo mkdir Monitor
 
+chgrp motion /home/pi/Monitor
 
-----------
+chmod g+rwx /home/pi/Monitor
+
+chmod -R g+w /home/pi/Monitor/
+
+
+-----------
 BOOT Script
-----------
+-----------
 sudo nano /etc/init.d/HM
 
---paste code in
+--get code from BOOT and paste in
+
+--Then set permissions and update
 
 sudo chmod +x /etc/init.d/HM
 
@@ -75,3 +89,6 @@ http://raspi.tv/2013/how-to-use-dropbox-with-raspberry-pi
 >git clone https://github.com/andreafabrizi/Dropbox-Uploader.git
 
 >./dropbox_uploader.sh upload /home/pi/name_of_upload_file
+
+Giving motion more permissions over directory:
+http://raspberrypi.stackexchange.com/questions/12378/what-permissions-does-motion-require-to-write-to-specific-directory
