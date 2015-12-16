@@ -1,6 +1,5 @@
 import httplib2
 import os
-import httplib
 
 from apiclient import discovery
 import oauth2client
@@ -60,11 +59,28 @@ def CreateMessage(sender, to, subject, message_text):
     """
 
     from email.mime.text import MIMEText
-    message = email.mime.text.MIMEText(message_text,  )
+    from email.mime.application import MIMEApplication
+    from email.mime.multipart import MIMEMultipart
+    from os.path import basename
+    #message = email.mime.text.MIMEText(message_text,  )
+    message= MIMEMultipart()
 
     message['from'] = sender
     message['to'] = to
     message['subject'] = subject
+    message.preamble = 'Multipart massage.\n'
+
+    msgpart = MIMEText(message_text)
+    message.attach(msgpart)
+
+    for f in files or []:
+        with open(f, "rb") as fil:
+            message.attach(MIMEApplication(
+                fil.read(),
+                Content_Disposition='attachment; filename="%s"' % basename(f),
+                Name=basename(f)
+            ))
+
     #return {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode() }  #py3
     return {'raw': base64.urlsafe_b64encode(message.as_string()).decode() }  #py2
 
@@ -85,7 +101,7 @@ def SendMessage(service, user_id, message):
     print(('Message Id: %s' % message['id']))
     return message
 
-def sendEmail(frm, to, subjectline="empty subject", msgbody="empty body"):
+def sendEmail(frm, to, subjectline="empty subject", msgbody="empty body", files=None):
     """Shows basic usage of the Gmail API.
 
     Creates a Gmail API service object and outputs a list of label names
@@ -95,7 +111,7 @@ def sendEmail(frm, to, subjectline="empty subject", msgbody="empty body"):
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('gmail', 'v1', http=http)
 
-    message = CreateMessage(frm, to, subjectline, msgbody )
+    message = CreateMessage(frm, to, subjectline, msgbody, files)
     SendMessage(service, frm, message)
 
 if __name__ == '__main__':
