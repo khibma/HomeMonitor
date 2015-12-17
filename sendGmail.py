@@ -12,10 +12,11 @@ try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
 except ImportError:
+    print "canot import flags??"
     flags = None
 
 SCOPES = 'https://www.googleapis.com/auth/gmail.send'
-CLIENT_SECRET_FILE = 'client_secret.json'
+CLIENT_SECRET_FILE = '/home/pi/Monitor/client_secret.json'
 APPLICATION_NAME = 'pyscript'
 
 def get_credentials():
@@ -39,13 +40,14 @@ def get_credentials():
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
         if flags:
-            credentials = tools.run_flow(flow, store, flags)
+            #credentials = tools.run_flow(flow, store, flags)
+            credentials = tools.run_flow(flow, store, "noauth_local_webserver")
         else: # Needed only for compatability with Python 2.6
             credentials = tools.run(flow, store)
         print(('Storing credentials to ' + credential_path))
     return credentials
 
-def CreateMessage(sender, to, subject, message_text):
+def CreateMessage(sender, to, subject, message_text, files):
     """Create a message for an email.
 
     Args:

@@ -93,3 +93,14 @@ http://raspi.tv/2013/how-to-use-dropbox-with-raspberry-pi
 
 Giving motion more permissions over directory:
 http://raspberrypi.stackexchange.com/questions/12378/what-permissions-does-motion-require-to-write-to-specific-directory
+
+Setting up GMAIL:
+sudo apt-get install python-pip   (or python3-pip)
+sudo pip install --upgrade google-api-python-client
+using by:
+`
+import sendGmail
+sendGmail.sendEmail("to@email.com", "from@gmail.com", "subject line", "msg body", ['file1.jpg'])
+`
+Command line has been hardcoded to send the flag which should skip the need to open a browser and confirm the device is "ok" to send
+
