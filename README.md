@@ -10,6 +10,26 @@ Start here with setting up the Pi
 
 >sudo raspi-config    (set timezone, locale, expand file partion, etc)
 
+>sudo nano /etc/default/keyboard    ` 'gb' -> 'us'`
+
+>sudo nano /etc/network/interfaces
+```
+#probably can comment out the rest
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet manual
+  wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
+```
+
+>sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+network={
+ ssid="RouterName"
+ psk="password"
+}
+```
+
 Check to make sure temperature works:  (more info in links below)
 
 >sudo modprobe w1-gpio
